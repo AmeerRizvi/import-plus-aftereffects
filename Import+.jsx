@@ -10,7 +10,6 @@
     var tabbedPanel = panel.add("tabbedpanel");
     tabbedPanel.alignment = ["fill", "fill"];
 
-    // Create the "Browse" tab
     var browseTab = tabbedPanel.add("tab", undefined, "Browse");
     browseTab.orientation = "column";
     browseTab.alignChildren = ["fill", "top"];
@@ -22,7 +21,6 @@
     );
     browseButton.alignment = "center";
 
-    // Add logic for the Browse button
     browseButton.onClick = function () {
       var files = File.openDialog(
         "Select files to copy and import",
@@ -32,7 +30,6 @@
       if (files) handleFileImport(files);
     };
 
-    // Add the "Organize and Relink Files" button
     var organizeButton = browseTab.add(
       "button",
       undefined,
@@ -44,7 +41,6 @@
       handleOrganizeAndRelink();
     };
 
-    // Logic for importing files
     function handleFileImport(files) {
       var project = app.project;
       if (!project.file) {
@@ -77,14 +73,11 @@
 
           var importOptions = new ImportOptions(destinationFile);
           project.importFile(importOptions);
-        } catch (e) {
-          // Silently ignore errors
-        }
+        } catch (e) {}
       }
       app.endUndoGroup();
     }
 
-    // Logic for organizing and relinking files
     function handleOrganizeAndRelink() {
       var project = app.project;
       if (!project.file) {
@@ -121,9 +114,7 @@
             }
 
             item.replace(destinationFile);
-          } catch (e) {
-            // Silently handle errors
-          }
+          } catch (e) {}
         }
       }
       app.endUndoGroup();
@@ -133,7 +124,6 @@
       );
     }
 
-    // Create the "Info" tab
     var infoTab = tabbedPanel.add("tab", undefined, "Info");
     infoTab.orientation = "column";
     infoTab.alignChildren = ["fill", "top"];
